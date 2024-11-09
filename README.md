@@ -17,27 +17,6 @@ Bu proje, BasicApp uygulaması için .NET Core kullanılarak geliştirilmiş bir
     git clone https://github.com/username/BasicApp.git
     ```
 
-2. Veritabanını oluşturun ve `appsettings.json` dosyasında bağlantı dizgisini yapılandırın:
-    ```json
-    "ConnectionStrings": {
-        "DefaultConnection": "Server=localhost;Database=BasicAppDb;Trusted_Connection=True;"
-    }
-    ```
-
-3. JWT ayarlarını `appsettings.json` dosyasında yapılandırın:
-    ```json
-    "JwtConfig": {
-        "Secret": "YourJWTSecretKey",
-        "AccessTokenExpiration": 30
-    }
-    ```
-
-4. Gerekli bağımlılıkları yükleyin ve veritabanı migrasyonlarını çalıştırın:
-    ```bash
-    dotnet restore
-    dotnet ef database update
-    ```
-
 ### Çalıştırma
 
 API'yi aşağıdaki komutla başlatabilirsiniz:
