@@ -66,13 +66,17 @@ public class JwtHelper
     {
         Claim[] claims = GetClaims(user);
         var secret = Encoding.ASCII.GetBytes(jwtConfig.Secret);
+
+        // JWT token oluşturulurken, `iat` claim'inin doğru formatta eklenmesi gerekebilir
         var jwtToken = new JwtSecurityToken(
-        jwtConfig.Issuer,
-        jwtConfig.Audience,
-        claims,
+            jwtConfig.Issuer,
+            jwtConfig.Audience,
+            claims.Concat(new[] {
+        new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString())
+            }).ToArray(),
             expires: DateTime.Now.AddMinutes(jwtConfig.AccessTokenExpiration),
             signingCredentials: new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256Signature)
-            );
+        );
 
         string accessToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 
@@ -97,4 +101,5 @@ public class JwtHelper
     {
         return Guid.NewGuid().ToString();
     }
+
 }

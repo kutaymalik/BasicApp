@@ -9,6 +9,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
 using BasicApp.Helpers.Token;
+using Microsoft.AspNetCore.Builder;
+using BasicApp.Helpers;
+using BasicApp.Helpers.Session;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,20 +26,29 @@ builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfi
 
 builder.Services.AddSingleton<JwtHelper>();
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<ISessionService, SessionService>();
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 builder.Services.AddControllers();
+
+builder.Services.AddMvc();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 // Configure Swagger with JWT support
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "BasicApp Api Management", Version = "v1.0" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "VkApi Api Management", Version = "v1.0" });
 
     var securityScheme = new OpenApiSecurityScheme
     {
-        Name = "BasicApp Api Management",
+        Name = "OrderAutomation Management",
         Description = "Enter JWT Bearer token **_only_**",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.Http,
@@ -73,24 +85,46 @@ builder.Services.AddAuthentication(x =>
         ValidAudience = JwtConfig.Audience,
         ValidateAudience = true,
         ValidateLifetime = true,
-        ClockSkew = TimeSpan.FromMinutes(5)
+        ClockSkew = TimeSpan.FromMinutes(2)
     };
 });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowAllHeaders",
+    builder =>
+    {
+        builder.AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+    });
+});
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BasicAppApi v1"));
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
 app.UseAuthentication();
 
-//app.UseCors("AllowAllHeaders");
+app.UseRouting();
+
+app.UseCors("AllowAllHeaders");
 
 app.UseAuthorization();
 
