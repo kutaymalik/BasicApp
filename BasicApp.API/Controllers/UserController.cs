@@ -55,7 +55,7 @@ public class UserController : ControllerBase
         {
             UserName = request.UserName,
             Password = hashedPassword,
-            Role = UserType.admin.ToString(),
+            Role = UserType.user.ToString(),
             Email = request.Email,
             InsertDate = DateTime.UtcNow,
             CreatedById = 1,
@@ -82,7 +82,7 @@ public class UserController : ControllerBase
         };
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id?}")]
     [Authorize(Roles = "admin, user")]
     public async Task<Response<UserResponse>> GetById(int? id)
     {
@@ -96,16 +96,6 @@ public class UserController : ControllerBase
                 isSuccessful = false,
                 Message = "Unauthorized access!",
                 StatusCode = System.Net.HttpStatusCode.Unauthorized // 401 Unauthorized
-            };
-        }
-
-        if (userIdFromToken != id)
-        {
-            return new Response<UserResponse>
-            {
-                isSuccessful = false,
-                Message = "Unauthorized access!",
-                StatusCode = System.Net.HttpStatusCode.Forbidden // 403 Forbidden for mismatched ID
             };
         }
 
@@ -179,7 +169,9 @@ public class UserController : ControllerBase
                 Password = user.Password,
                 Role = user.Role,
                 RefreshToken = user.RefreshToken,
-                RefreshTokenExpireDate = user.RefreshTokenExpireDate
+                RefreshTokenExpireDate = user.RefreshTokenExpireDate,
+                Id = user.Id,
+                isActive = user.IsActive,
             };
             responseList.Add(response);
         }
