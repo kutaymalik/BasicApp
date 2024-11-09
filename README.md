@@ -6,7 +6,7 @@ Bu proje, BasicApp uygulaması için .NET Core kullanılarak geliştirilmiş bir
 
 ### Gereksinimler
 
-- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 - SQL Server veya başka bir veritabanı sunucusu
 - Visual Studio veya Visual Studio Code (önerilir)
 
