@@ -14,7 +14,7 @@ Bu proje, BasicApp uygulaması için .NET Core kullanılarak geliştirilmiş bir
 
 1. Proje dosyasını bilgisayarınıza klonlayın:
     ```bash
-    git clone https://github.com/username/BasicApp.git
+    gh repo clone kutaymalik/BasicApp
     ```
 
 ### Çalıştırma
@@ -22,7 +22,7 @@ Bu proje, BasicApp uygulaması için .NET Core kullanılarak geliştirilmiş bir
 API'yi aşağıdaki komutla başlatabilirsiniz:
 ```bash
 dotnet run
-
+```
 ## Kullanılabilir API Uç Noktaları
 
 | HTTP Yöntemi | Uç Nokta               | Açıklama                      |
