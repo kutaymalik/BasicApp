@@ -1,12 +1,12 @@
 # BasicApp Backend
 
-Bu proje, BasicApp uygulaması için .NET Core kullanılarak geliştirilmiş bir API'dir. Kullanıcıların kayıt olması, giriş yapması, profil bilgilerini güncellemesi ve hesaplarını silmesi gibi işlemler için gereken API uç noktalarını sağlar.
+Bu proje, BasicApp uygulaması için .NET Core kullanılarak geliştirilmiş bir API'dir. Kullanıcıların kayıt olması, giriş yapması, profil bilgilerini güncellemesi ve hesaplarını silmesi gibi işlemler için gereken API uç noktalarını sağlar. Jwt Tokwn ile veri bütünlüğü ve güvenliği sağlanmıştır. Rol bazlı yetkilendirme bulunmaktadır.
 
 ## Başlangıç
 
 ### Gereksinimler
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - SQL Server veya başka bir veritabanı sunucusu
 - Visual Studio veya Visual Studio Code (önerilir)
 
