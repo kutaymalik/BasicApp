@@ -60,7 +60,3 @@ dotnet run
 - **Method**: `DELETE`
 - **Açıklama**: Belirtilen `id`'ye sahip kullanıcı hesabını siler.
 
----
-
-Bu API uç noktaları, BasicApp'in kullanıcı yönetim işlemleri için kullanılmaktadır. Her bir uç nokta için daha detaylı bilgiye ulaşmak için gerekli dokümantasyona veya proje detaylarına bakabilirsiniz.
-
